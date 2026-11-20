@@ -18,13 +18,27 @@
 
 ## Установить по SSH
 
-Войдите на NAS по SSH под администратором DSM. Команда скачает установщик версии v1.0.0 и запросит права через sudo. Нужны интернет-доступ к raw.githubusercontent.com, доступный том /volume1, curl и sha256sum. Для уже имеющихся сжатых копий DSM нужны gzip или brotli соответственно.
+Войдите на NAS по SSH под администратором DSM. Команда скачает установщик версии v1.0.1 и запросит права через sudo. Нужны интернет-доступ к raw.githubusercontent.com, доступный том /volume1, curl и sha256sum. Для уже имеющихся сжатых копий DSM нужны gzip или brotli соответственно.
 
 ```sh
-(f=$(mktemp) && trap 'rm -f "$f"' EXIT && curl -fsSL https://raw.githubusercontent.com/konstpic/dsm-liquid-glass/v1.0.0/setup.sh -o "$f" && sudo sh "$f" install)
+(f=$(mktemp) && trap 'rm -f "$f"' EXIT && curl -fsSL https://raw.githubusercontent.com/konstpic/dsm-liquid-glass/v1.0.1/setup.sh -o "$f" && sudo sh "$f" install)
 ```
 
 После установки перезагрузите вкладку DSM с обновлением кеша. Откройте **Панель управления → Темы** и выберите **Светлая**, **Тёмная** или **Авто**. Выбор хранится в браузере для текущего адреса NAS. «Авто» следует системному оформлению устройства. На телефоне отдельный мобильный интерфейс использует ту же настройку браузера. Анимация обоев учитывает настройку уменьшения движения.
+
+## Обновить установленную тему
+
+Команда находит последний опубликованный релиз, проверяет файлы и обновляет обе версии интерфейса. Оригиналы DSM сохраняются для удаления.
+
+```sh
+sudo sh /volume1/@dsm-liquid-glass/setup.sh update
+```
+
+Для перехода с v1.0.0 один раз скачайте новый установщик и запустите его с аргументом update.
+
+```sh
+(f=$(mktemp) && trap 'rm -f "$f"' EXIT && curl -fsSL https://raw.githubusercontent.com/konstpic/dsm-liquid-glass/v1.0.1/setup.sh -o "$f" && sudo sh "$f" update)
+```
 
 ## Удалить по SSH
 

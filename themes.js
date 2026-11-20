@@ -391,6 +391,26 @@
       outline: 2px solid var(--control-line) !important;
       outline-offset: -2px;
     }
+    html[data-dsm-local-theme] .syno-pkg-term-field .syno-pkg-term-content {
+      background: color-mix(in srgb, var(--control-fill) 94%, transparent) !important;
+      color: var(--dsm-theme-ink) !important;
+      border-color: transparent !important;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    html[data-dsm-local-theme] .syno-pkg-term-field .syno-pkg-term-content-inner {
+      background: transparent !important;
+      color: var(--dsm-theme-ink) !important;
+      line-height: 1.55;
+    }
+    html[data-dsm-local-theme] .syno-pkg-term-field :is(.syno-pkg-term-title,.syno-pkg-term-subtitle,h1,h2,h3,h4,h5,h6,p,li,strong,label) {
+      color: var(--dsm-theme-ink) !important;
+    }
+    html[data-dsm-local-theme] .syno-pkg-term-content a {
+      color: var(--dsm-reading-link, #185ba7) !important;
+      text-decoration: underline;
+    }
+    html[data-dsm-local-theme="graphite"] .syno-pkg-term-field { --dsm-reading-link: #a5caff; }
     @media (prefers-reduced-transparency: reduce) {
       html[data-dsm-local-theme] :is(.taskbar-wrapper, .sds-taskbar, ${windowSurfaces}, ${menuSurfaces}) {
         backdrop-filter: none;

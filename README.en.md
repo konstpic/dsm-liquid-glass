@@ -18,13 +18,27 @@ Tested on **DSM 7.4.1-90080 Update 1**. The installer accepts build 90080. Deskt
 
 ## Install over SSH
 
-Connect to the NAS as a DSM administrator. The command downloads the v1.0.0 installer and runs it with sudo. You need access to raw.githubusercontent.com, a mounted /volume1, curl and sha256sum. Existing gzip or Brotli copies require gzip or brotli, respectively.
+Connect to the NAS as a DSM administrator. The command downloads the v1.0.1 installer and runs it with sudo. You need access to raw.githubusercontent.com, a mounted /volume1, curl and sha256sum. Existing gzip or Brotli copies require gzip or brotli, respectively.
 
 ```sh
-(f=$(mktemp) && trap 'rm -f "$f"' EXIT && curl -fsSL https://raw.githubusercontent.com/konstpic/dsm-liquid-glass/v1.0.0/setup.sh -o "$f" && sudo sh "$f" install)
+(f=$(mktemp) && trap 'rm -f "$f"' EXIT && curl -fsSL https://raw.githubusercontent.com/konstpic/dsm-liquid-glass/v1.0.1/setup.sh -o "$f" && sudo sh "$f" install)
 ```
 
 Hard-refresh DSM after installation. In **Control Panel**, open **Темы** (Themes). The theme picker uses Russian labels. Choose **Светлая** (Light), **Тёмная** (Dark) or **Авто** (follow the device). The preference is saved in this browser for this NAS address. The mobile web interface shares that browser preference. Wallpaper animation respects the device’s reduced-motion setting.
+
+## Update the installed theme
+
+The updater resolves the latest published release, verifies the files and updates both interfaces. The original DSM bundles are retained for offline removal.
+
+```sh
+sudo sh /volume1/@dsm-liquid-glass/setup.sh update
+```
+
+When upgrading from v1.0.0, download the new installer once and run it with the update argument.
+
+```sh
+(f=$(mktemp) && trap 'rm -f "$f"' EXIT && curl -fsSL https://raw.githubusercontent.com/konstpic/dsm-liquid-glass/v1.0.1/setup.sh -o "$f" && sudo sh "$f" update)
+```
 
 ## Uninstall over SSH
 
