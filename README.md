@@ -18,13 +18,27 @@
 
 ## Установить по SSH
 
-Войдите на NAS по SSH под администратором DSM. Команда скачает установщик версии v1.0.1 и запросит права через sudo. Нужны интернет-доступ к raw.githubusercontent.com, доступный том /volume1, curl и sha256sum. Для уже имеющихся сжатых копий DSM нужны gzip или brotli соответственно.
+Войдите на NAS по SSH под администратором DSM. Команда скачает установщик версии v1.0.2 и запросит права через sudo. Нужны интернет-доступ к raw.githubusercontent.com, доступный том /volume1, curl и sha256sum. Для уже имеющихся сжатых копий DSM нужны gzip или brotli соответственно.
 
 ```sh
-(f=$(mktemp) && trap 'rm -f "$f"' EXIT && curl -fsSL https://raw.githubusercontent.com/konstpic/dsm-liquid-glass/v1.0.1/setup.sh -o "$f" && sudo sh "$f" install)
+(f=$(mktemp) && trap 'rm -f "$f"' EXIT && curl -fsSL https://raw.githubusercontent.com/konstpic/dsm-liquid-glass/v1.0.2/setup.sh -o "$f" && sudo sh "$f" install)
 ```
 
 После установки перезагрузите вкладку DSM с обновлением кеша. Откройте **Панель управления → Темы** и выберите **Светлая**, **Тёмная** или **Авто**. Выбор хранится в браузере для текущего адреса NAS. «Авто» следует системному оформлению устройства. На телефоне отдельный мобильный интерфейс использует ту же настройку браузера. Анимация обоев учитывает настройку уменьшения движения.
+
+## Автообновление темы
+
+С версии 1.0.2 установщик по умолчанию включает таймер на самой NAS. Через 15 минут после загрузки и затем каждые 6 часов он проверяет последний стабильный GitHub Release. При выходе более новой версии загружает два файла темы, проверяет SHA-256 и применяет их локальным установщиком. Новый внешний shell-код по таймеру не запускается. Изменения появляются после перезагрузки вкладки DSM. Обновления DSM управляются отдельно.
+
+Владельцам v1.0.1 нужно один раз выполнить команду ручного обновления ниже. Для v1.0.0 используйте команду перехода с этой версии. После перехода последующие релизы темы приходят автоматически. Требуется доступ NAS к github.com и raw.githubusercontent.com.
+
+**Отключить / включить / посмотреть расписание**
+
+```sh
+sudo sh /volume1/@dsm-liquid-glass/setup.sh auto-off
+sudo sh /volume1/@dsm-liquid-glass/setup.sh auto-on
+systemctl list-timers dsm-liquid-glass-update.timer
+```
 
 ## Обновить установленную тему
 
@@ -37,7 +51,7 @@ sudo sh /volume1/@dsm-liquid-glass/setup.sh update
 Для перехода с v1.0.0 один раз скачайте новый установщик и запустите его с аргументом update.
 
 ```sh
-(f=$(mktemp) && trap 'rm -f "$f"' EXIT && curl -fsSL https://raw.githubusercontent.com/konstpic/dsm-liquid-glass/v1.0.1/setup.sh -o "$f" && sudo sh "$f" update)
+(f=$(mktemp) && trap 'rm -f "$f"' EXIT && curl -fsSL https://raw.githubusercontent.com/konstpic/dsm-liquid-glass/v1.0.2/setup.sh -o "$f" && sudo sh "$f" update)
 ```
 
 ## Удалить по SSH
